@@ -1,0 +1,139 @@
+blueprint:
+  name: Moes/Tuya 4-Button Scene Switch (TS0044)
+  description: >
+    Controls various entities based on single and double press actions from a Moes 4-Button Scene Switch.
+  domain: automation
+  input:
+    switch_topic:
+      name: MQTT Topic
+      description: The MQTT topic for the scene switch.
+      selector:
+        text:
+    single_1:
+      name: Action for 1 Single Press
+      description: Action to run when button 1 is single pressed.
+      selector:
+        action: {}
+    single_2:
+      name: Action for 2 Single Press
+      description: Action to run when button 2 is single pressed.
+      selector:
+        action: {}
+    single_3:
+      name: Action for 3 Single Press
+      description: Action to run when button 3 is single pressed.
+      selector:
+        action: {}
+    single_4:
+      name: Action for 4 Single Press
+      description: Action to run when button 4 is single pressed.
+      selector:
+        action: {}
+    double_1:
+      name: Action for 1 Double Press
+      description: Action to run when button 1 is double pressed.
+      selector:
+        action: {}
+    double_2:
+      name: Action for 2 Double Press
+      description: Action to run when button 2 is double pressed.
+      selector:
+        action: {}
+    double_3:
+      name: Action for 3 Double Press
+      description: Action to run when button 3 is double pressed.
+      selector:
+        action: {}
+    double_4:
+      name: Action for 4 Double Press
+      description: Action to run when button 4 is double pressed.
+      selector:
+        action: {}
+    hold_1:
+      name: Action for 1 hold Press
+      description: Action to run when button 1 is held.
+      selector:
+        action: {}
+    hold_2:
+      name: Action for 2 hold Press
+      description: Action to run when button 2 is held.
+      selector:
+        action: {}
+    hold_3:
+      name: Action for 3 hold Press
+      description: Action to run when button 3 is held.
+      selector:
+        action: {}
+    hold_4:
+      name: Action for 4 hold Press
+      description: Action to run when button 4 is held.
+      selector:
+        action: {}
+
+trigger:
+  - platform: mqtt
+    topic: !input switch_topic
+
+action:
+  - choose:
+      - conditions:
+          - condition: template
+            value_template: "{{ trigger.payload == '1_single' }}"
+        sequence: !input single_1
+
+      - conditions:
+          - condition: template
+            value_template: "{{ trigger.payload == '2_single' }}"
+        sequence: !input single_2
+
+      - conditions:
+          - condition: template
+            value_template: "{{ trigger.payload == '3_single' }}"
+        sequence: !input single_3
+
+      - conditions:
+          - condition: template
+            value_template: "{{ trigger.payload == '4_single' }}"
+        sequence: !input single_4
+
+      - conditions:
+          - condition: template
+            value_template: "{{ trigger.payload == '1_double' }}"
+        sequence: !input double_1
+
+      - conditions:
+          - condition: template
+            value_template: "{{ trigger.payload == '2_double' }}"
+        sequence: !input double_2
+
+      - conditions:
+          - condition: template
+            value_template: "{{ trigger.payload == '3_double' }}"
+        sequence: !input double_3
+
+      - conditions:
+          - condition: template
+            value_template: "{{ trigger.payload == '4_double' }}"
+        sequence: !input double_4
+		
+      - conditions:
+          - condition: template
+            value_template: "{{ trigger.payload == '1_hold' }}"
+        sequence: !input hold_1
+
+      - conditions:
+          - condition: template
+            value_template: "{{ trigger.payload == '2_hold' }}"
+        sequence: !input hold_2
+
+      - conditions:
+          - condition: template
+            value_template: "{{ trigger.payload == '3_hold' }}"
+        sequence: !input hold_3
+
+      - conditions:
+          - condition: template
+            value_template: "{{ trigger.payload == '4_hold' }}"
+        sequence: !input hold_4
+
+mode: single
